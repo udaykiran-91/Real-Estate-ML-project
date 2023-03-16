@@ -1,0 +1,87 @@
+{% extends 'main.html' %}
+
+{% block content%}
+
+
+<main class="create-room layout">
+    <div class="container">
+      <div class="layout__box">
+        <div class="layout__boxHeader">
+          <div class="layout__boxTitle">
+            <h3>Estimation of price</h3>
+          </div>
+        </div>
+        <div class="layout__body">
+          <form class="form" action="" method="post">
+            {% csrf_token %}
+
+            <div class="form__group">
+              <label for="location">Location </label>
+              <input required  type="text" name="location" list="location-list">
+              <datalist id="location-list">
+                <select id="location">
+                  {% for locate in data_columns %}
+                 {% if data_columns.0 != locate and data_columns.1 != locate and data_columns.2 != locate%}
+                  <option value="{{locate}}">{{locate}}</option>
+                  {% endif %}
+                  {% endfor %}
+                </select>
+              </datalist>
+            </div>
+            <div class="form__group">
+              <label for="bhk">No. of Bed rooms</label>
+              <input required type="text" name="bhk" id="bed" list="bed-list" />
+              <datalist id="bed-list">
+                <select id="bed">
+                  <option value="">Select your topic</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                </select>
+              </datalist>
+
+            </div>
+            <div class="form__group">
+                <label for="bath">No. of Bath rooms</label>
+                <input required type="text" name="bath" id="bath" list="bath-list" />
+                <datalist id="bath-list">
+                  <select id="bath">
+                    <option value="">Select your topic</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                  </select>
+                </datalist>
+  
+              </div>
+
+            
+
+            <div class="form__group">
+                <label for="area">Area(Square feet) </label>
+                <input required  type="number" name="area">
+            </div>
+
+            {% if request.method == 'POST'%}
+            <div class="form__group">
+              <label for="price">Price</label>
+              <span class="btn btn--main">&#8377; {{fin|floatformat:2 }} Lakhs</span>
+            </div>
+            {% endif %}
+
+            <div class="form__action">
+              <a class="btn btn--dark" href="{% url 'home' %}">Refresh</a>
+              <button class="btn btn--main" type="submit">Estimate price</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </main>
+
+
+{% endblock %}
